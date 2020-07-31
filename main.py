@@ -14,6 +14,12 @@ class Feature(BaseModel):
 app = FastAPI()
 model = joblib.load('model/model.pkl')
 
+# names of classes
+target_names = {
+    0: 'setosa',
+    1: 'versicolor',
+    2: 'virginica'
+}
 
 @app.get("/")
 def read_root():
@@ -35,4 +41,4 @@ def get_prediction(feature: Feature):
     
     prediction = float(model.predict(data)[0])
 
-    return {'prediction': prediction}
+    return {'prediction': target_names[prediction]}
